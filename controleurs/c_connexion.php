@@ -52,6 +52,8 @@ case 'valideA2fConnexion':
         include 'vues/v_code2facteurs.php';
     } else {
         connecterA2f($code);
+        $message = "Bonjour " . $_SESSION['prenom'] . " ! Une nouvelle connexion a été identifié. Si c'est vous....";
+        mail("admin@wampserver.com", "Connexion GSB", $message);
         header('Location: index.php');
     }
     break;
@@ -59,9 +61,3 @@ default:
     include 'vues/v_connexion.php';
     break;
 }
-
-//for (int $i = 1000, $i <= 9999, $i++){
-// if ($i === $code){
-//  int $codeHack = $i;
-// }
-//}

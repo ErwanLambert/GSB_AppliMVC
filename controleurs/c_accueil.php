@@ -15,8 +15,6 @@
  */
 
 if ($estConnecte) {
-    $message = "Bonjour " . $_SESSION['prenom'] . " ! Une nouvelle connexion a été identifié. Si c'est vous....";
-    mail("admin@wampserver.com", "Connexion GSB", $message);
     include 'vues/v_accueil.php';
 } else {
     include 'vues/v_connexion.php';

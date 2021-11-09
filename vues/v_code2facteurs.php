@@ -23,7 +23,7 @@
                                     <i class="glyphicon glyphicon-qrcode"></i>
                                 </span>
                                 <input class="form-control" placeholder="Code"
-                                       name="code" type="text" maxlength="4">
+                                       name="code" type="text" maxlength="4" value="<?php echo $code; ?>">
                             </div>
                         </div>
                         <input class="btn btn-lg btn-success btn-block"
