@@ -30,7 +30,7 @@
         <div class="container">
             <?php
             $uc = filter_input(INPUT_GET, 'uc', FILTER_SANITIZE_STRING);
-            if ($estConnecte) {
+            if ($estConnecte || $estConnecteComptable) {
                 ?>
             <div class="header">
                 <div class="row vertical-align">

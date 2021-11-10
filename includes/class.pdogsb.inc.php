@@ -103,17 +103,87 @@ class PdoGsb
         return $requetePrepare->fetch();
     }
     
-    public function getMdpVisiteur($login) {
-    $requetePrepare = PdoGsb::$monPdo->prepare(
-        'SELECT mdp '
-        . 'FROM visiteur '
-        . 'WHERE visiteur.login = :unLogin'
-    );
-    $requetePrepare->bindParam(':unLogin', $login, PDO::PARAM_STR);
-    $requetePrepare->execute(); 
-    return $requetePrepare->fetch()['mdp'];
+    public function getMdpVisiteur($login) 
+    {
+        $requetePrepare = PdoGsb::$monPdo->prepare(
+            'SELECT mdp '
+            . 'FROM visiteur '
+            . 'WHERE visiteur.login = :unLogin'
+        );
+        $requetePrepare->bindParam(':unLogin', $login, PDO::PARAM_STR);
+        $requetePrepare->execute(); 
+        return $requetePrepare->fetch()['mdp'];
     }
-
+    
+    public function getCodeVisiteur($id) {
+        $requetePrepare = PdoGsb::$monPdo->prepare(
+            'SELECT visiteur.codea2f AS codea2f '
+            . 'FROM visiteur '
+            . 'WHERE visiteur.id = :unId'
+        );
+        $requetePrepare->bindParam(':unId', $id, PDO::PARAM_STR);
+        $requetePrepare->execute();
+        return $requetePrepare->fetch()['codea2f'];
+    }
+    
+    public function getInfosComptable($login)
+    {
+        $requetePrepare = PdoGsb::$monPdo->prepare(
+                'SELECT comptable.id AS id, comptable.nom AS nom, '
+                . 'comptable.prenom AS prenom, comptable.email AS email '
+                . 'FROM comptable '
+                . 'WHERE comptable.login = :unLogin'
+        );
+        $requetePrepare->bindParam(':unLogin', $login, PDO::PARAM_STR);
+        $requetePrepare->execute();
+        return $requetePrepare->fetch();
+    }
+    
+    public function getMdpComptable($login)
+    {
+        $requetePrepare = PdoGsb::$monPdo->prepare(
+            'SELECT mdp '
+            . 'FROM comptable '
+            . 'WHERE comptable.login = :unLogin'
+        );
+        $requetePrepare->bindParam(':unLogin', $login, PDO::PARAM_STR);
+        $requetePrepare->execute(); 
+        return $requetePrepare->fetch()['mdp'];
+    }
+    
+    public function getCodeComptable($id) {
+        $requetePrepare = PdoGsb::$monPdo->prepare(
+                'SELECT comptable.codea2f AS codea2f '
+                . 'FROM comptable '
+                . 'WHERE comptable.id = :unId'
+        );
+        $requetePrepare->bindParam(':unId', $id, PDO::PARAM_STR);
+        $requetePrepare->execute();
+        return $requetePrepare->fetch()['codea2f'];
+    }
+    
+    public function setCodeA2f($id, $code) {
+        $requetePrepare = PdoGSB::$monPdo->prepare(
+            'UPDATE visiteur '
+            . 'SET codea2f = :unCode '
+            . 'WHERE visiteur.id = :unIdVisiteur '
+        );
+        $requetePrepare->bindParam(':unCode', $code, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':unIdVisiteur', $id, PDO::PARAM_STR);
+        $requetePrepare->execute();
+    }
+    
+    public function setCodeA2fComptable($id, $code) {
+        $requetePrepare = PdoGsb::$monPdo->prepare(
+                'UPDATE comptable '
+                . 'SET codea2f = :unCode '
+                . 'WHERE comptable.id = :unIdComptable '                           
+        );
+        $requetePrepare->bindParam(':unCode', $code, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':unIdComptable', $id, PDO::PARAM_STR);
+        $requetePrepare->execute();
+    }
+    
     /**
      * Retourne sous forme d'un tableau associatif toutes les lignes de frais
      * hors forfait concernées par les deux arguments.
@@ -495,27 +565,5 @@ class PdoGsb
         $requetePrepare->bindParam(':unIdVisiteur', $idVisiteur, PDO::PARAM_STR);
         $requetePrepare->bindParam(':unMois', $mois, PDO::PARAM_STR);
         $requetePrepare->execute();
-    }
-    
-    public function setCodeA2f($id, $code) {
-        $requetePrepare = PdoGSB::$monPdo->prepare(
-            'UPDATE visiteur '
-            . 'SET codea2f = :unCode '
-            . 'WHERE visiteur.id = :unIdVisiteur '
-        );
-        $requetePrepare->bindParam(':unCode', $code, PDO::PARAM_STR);
-        $requetePrepare->bindParam(':unIdVisiteur', $id, PDO::PARAM_STR);
-        $requetePrepare->execute();
-    }
-    
-    public function getCodeVisiteur($id) {
-        $requetePrepare = PdoGsb::$monPdo->prepare(
-            'SELECT visiteur.codea2f AS codea2f '
-            . 'FROM visiteur '
-            . 'WHERE visiteur.id = :unId'
-        );
-        $requetePrepare->bindParam(':unId', $id, PDO::PARAM_STR);
-        $requetePrepare->execute();
-        return $requetePrepare->fetch()['codea2f'];
     }
 }

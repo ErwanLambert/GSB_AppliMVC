@@ -30,7 +30,7 @@
                                     <i class="glyphicon glyphicon-user"></i>
                                 </span>
                                 <input class="form-control" placeholder="Login"
-                                       name="login" type="text" maxlength="45" value="pbentot">
+                                       name="login" type="text" maxlength="45" value="elambert">
                             </div>
                         </div>
                         <div class="form-group">
@@ -40,7 +40,7 @@
                                 </span>
                                 <input class="form-control"
                                        placeholder="Mot de passe" name="mdp"
-                                       type="password" maxlength="45" value="doyw1">
+                                       type="password" maxlength="45" value="g38ape">
                             </div>
                         </div>
                         <input class="btn btn-lg btn-success btn-block"
