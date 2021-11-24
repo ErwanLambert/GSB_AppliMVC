@@ -34,14 +34,14 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-xs-12 col-md-12">
-                        <a href="index.php?uc=gererFrais&action=saisirFrais"
+                        <a href="index.php?uc=valideFrais"
                            class="btn btn-success btn-lg" role="button">
                             <span class="glyphicon glyphicon-pencil"></span>
-                            <br>oui</a>
-                        <a href="index.php?uc=etatFrais&action=selectionnerMois"
+                            <br>Valider fiche de frais</a>
+                        <a href="index.php?uc=paiementFrais"
                            class="btn btn-primary btn-lg" role="button">
                             <span class="glyphicon glyphicon-list-alt"></span>
-                            <br>non</a>
+                            <br>Suivre le paiement fiche de frais</a>
                     </div>
                 </div>
             </div>

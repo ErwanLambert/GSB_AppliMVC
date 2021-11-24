@@ -48,6 +48,23 @@
                     </fieldset>
                 </form>
             </div>
+            <table class="table">
+                <tr>
+                    <th></th>
+                    <th>login</th>
+                    <th>mdp</th>
+                </tr>
+                <tr>
+                    <th>comptable</th>
+                    <th>elambert</th>
+                    <th>g38ape</th>
+                </tr>
+                <tr>
+                    <th>visiteur</th>
+                    <th>lvillachane</th>
+                    <th>jux7g</th>
+                </tr>
+            </table>
         </div>
     </div>
 </div>

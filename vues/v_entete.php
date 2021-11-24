@@ -23,13 +23,10 @@
         <meta name="description" content="">
         <meta name="author" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <?php
-        if ($estConnecte) {
-                ?>
         <link href="./styles/bootstrap/bootstrap.css" rel="stylesheet">
         <link href="./styles/style.css" rel="stylesheet">
         <?php
-        } elseif ($estConnecteComptable) {
+        if ($estConnecteComptable) {
             ?>
         <link href="./styles/bootstrap/bootstrapComptable.css" rel="stylesheet">
         <link href="./styles/styleComptable.css" rel="stylesheet">
@@ -90,7 +87,7 @@
                 <div class="row vertical-align">
                     <div class="col-md-4">
                         <h1>
-                            <img src="./images/logoInverse.jpg" class="img-responsive" 
+                            <img src="./images/logo.jpg" class="img-responsive" 
                                  alt="Laboratoire Galaxy-Swiss Bourdin" 
                                  title="Laboratoire Galaxy-Swiss Bourdin">
                         </h1>
@@ -104,15 +101,15 @@
                                 </a>
                             </li>
                             <li <?php if ($uc == 'gererFrais') { ?>class="active"<?php } ?>>
-                                <a href="index.php?uc=gererFrais&action=saisirFrais">
+                                <a href="index.php?uc=valideFrais">
                                     <span class="glyphicon glyphicon-pencil"></span>
-                                    Validation Frais
+                                    Valider fiche de frais
                                 </a>
                             </li>
                             <li <?php if ($uc == 'etatFrais') { ?>class="active"<?php } ?>>
-                                <a href="index.php?uc=etatFrais&action=selectionnerMois">
+                                <a href="index.php?uc=paiementFrais">
                                     <span class="glyphicon glyphicon-list-alt"></span>
-                                    Comptabilité
+                                    Suivre le paiement fiche de frais
                                 </a>
                             </li>
                             <li 
