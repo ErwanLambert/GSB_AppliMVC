@@ -44,7 +44,7 @@ case 'deconnexion':
     include 'controleurs/c_deconnexion.php';
     break;
 case 'valideFrais':
-    include 'vues/v_valideFrais.php';
+    include 'controleurs/c_valideFrais.php';
     break;
 case 'paiementFrais':
     include 'vues/v_paiementFrais.php';
