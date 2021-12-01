@@ -532,6 +532,29 @@ class PdoGsb
         }
         return $lesMois;
     }
+    
+    public function getVisiteursFromMois($mois) {
+        $requetePrepare = PdoGSB::$monPdo->prepare(
+            "select CONCAT(nom, ' ', prenom)as nomvisiteur, idvisiteur as visiteur from fichefrais "
+            . "inner join visiteur on visiteur.id = fichefrais.idvisiteur "
+            . "where mois=:unMois "
+            . "AND idetat='CL'");
+        $requetePrepare->bindParam(':unMois', $mois, PDO::PARAM_STR);
+        $requetePrepare->execute();
+        $res = $requetePrepare->fetchAll(PDO::FETCH_ASSOC);
+        return $res;
+    }
+    
+    public function getIdFromNomVisiteur($nomVis){
+        $requetePrepare = PdoGSB::$monPdo->prepare(
+                "select id from visiteur "
+                . "where CONCAT(nom, ' ', prenom) = :unNom "
+        );
+        $requetePrepare->bindParam(':unNom', $nomVis, PDO::PARAM_STR);
+        $requetePrepare->execute();
+        $res = $requetePrepare->fetch(PDO::FETCH_ASSOC);
+        return $res;
+    }
 
     /**
      * Retourne les informations d'une fiche de frais d'un visiteur pour un
