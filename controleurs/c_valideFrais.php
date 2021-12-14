@@ -2,6 +2,7 @@
 $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
 $idVisiteur = filter_input(INPUT_POST, 'lstVisiteur', FILTER_SANITIZE_STRING);
 $montants = 0;
+$pdo->ClotureFiche();
 switch ($action) {
     case 'selectionnerMois':
         if(empty($pdo->getLesMois())){
@@ -50,5 +51,7 @@ switch ($action) {
         $infoFicheDeFrais = $pdo->getLesInfosFicheFrais($_SESSION['visiteur'], $_SESSION['date']);
         $infoFraisForfait = $pdo->getLesFraisForfait($_SESSION['visiteur'], $_SESSION['date']);
         $infoFraisHorsForfait = $pdo->getLesFraisHorsForfait($_SESSION['visiteur'], $_SESSION['date']);
+        $_SESSION['montant'] = $montants;
         include 'vues/v_valideFrais.php';
+        break;
 }
