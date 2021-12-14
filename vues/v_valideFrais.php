@@ -1,5 +1,5 @@
 <form method="post" 
-      action="index.php?uc=ValiderFicheDeFrais&action=CorrigerNbJustificatifs" 
+      action="index.php?uc=valideFrais&action=CorrigerNbJustificatifs" 
       role="form">
     <div class="panel panel-info" style="border-color: #FF7302;">
         <div class="panel-heading" style="border-color: #FF7302; background-color: #FF7302; color: white;">Fiche</div>
@@ -53,7 +53,7 @@
 <?php
             if($infoFraisForfait) { ?>
 <form method="post" 
-      action="index.php?uc=ValiderFicheDeFrais&action=CorrigerFraisForfait" 
+      action="index.php?uc=valideFrais&action=CorrigerFraisForfait" 
       role="form">
     <div class="panel panel-info" style="border-color: #FF7302;">
         <div class="panel-heading" style="border-color: #FF7302; background-color: #FF7302; color: white;">Eléments forfaitisés</div>
@@ -105,7 +105,7 @@
 <?php }
 if($infoFraisHorsForfait){ ?>
 <form method="post" 
-      action="index.php?uc=ValiderFicheDeFrais&action=CorrigerElemHorsForfait" 
+      action="index.php?uc=valideFrais&action=CorrigerElemHorsForfait" 
       role="form">
     <div class="panel panel-info" style="border-color: #FF7302;">
         <div class="panel-heading" style="border-color: #FF7302; background-color: #FF7302; color: white;">Eléments hors-forfait</div>
@@ -149,7 +149,7 @@ if($infoFraisHorsForfait){ ?>
                                accept=""role="button"> 
                         <input id="annuler" type="reset" value="Réinitialiser" class="btn btn-warning"" 
                                accept=""role="button">
-                        <a href="index.php?uc=ValiderFicheDeFrais&action=supprimerFrais&idFrais=<?php echo $idHF ?>&mois=<?php echo $mois ?>&idVisiteur=<?php echo $_SESSION['visiteur'] ?>" 
+                        <a href="index.php?uc=valideFrais&action=supprimerFrais&idFrais=<?php echo $idHF ?>&mois=<?php echo $mois ?>&idVisiteur=<?php echo $_SESSION['visiteur'] ?>" 
                            type="reset" class="btn btn-danger" role="button"
                            onclick="return confirm('Voulez-vous vraiment supprimer ou reporter ce frais hors forfait?');">Supprimer</a>
                     </td>
@@ -163,7 +163,7 @@ if($infoFraisHorsForfait){ ?>
             </div>
 <?php } ?>
 <form method="post" 
-      action="index.php?uc=ValiderFicheDeFrais&action=Valider" 
+      action="index.php?uc=valideFrais&action=Valider" 
       role="form">
     <input id="okFicheFrais" type="submit" value="Valider" class="btn btn-success" 
            accept=""role="button" onclick="return confirm('Voulez-vous vraiment valider cette fiche de frais ?');"> 

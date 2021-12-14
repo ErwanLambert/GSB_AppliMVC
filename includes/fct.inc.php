@@ -108,6 +108,22 @@ function getMois($date)
     return $annee . $mois;
 }
 
+function getMoisSuivant($mois)
+{
+    $numAnnee = substr($mois, 0, 4);
+    $numMois = substr($mois, 4, 2);
+    if ($numMois == '12') {
+        $numMois = '01';
+        $numAnnee++;
+    } else {
+        $numMois++;
+    }
+    if (strlen($numMois) == 1) {
+        $numMois = '0' . $numMois;
+    }
+    return $numAnnee . $numMois;
+}
+
 /* gestion des erreurs */
 
 /**

@@ -315,6 +315,54 @@ class PdoGsb
             $requetePrepare->execute();
         }
     }
+    
+    public function majFraisHorsForfait($idVisiteur, $mois, $lesHorsForfaitLibelle, $lesHorsForfaitMontant, $lesHorsForfaitDate) {
+        $lesCles = array_keys($lesHorsForfaitLibelle);
+        foreach ($lesCles as $unIdHorsFrais) {
+            $libelle = $lesHorsForfaitLibelle[$unIdHorsFrais];
+            $montant = $lesHorsForfaitMontant[$unIdHorsFrais];
+            $date = $lesHorsForfaitDate[$unIdHorsFrais];
+            $requetePrepare = PdoGSB::$monPdo->prepare(
+                    'UPDATE lignefraishorsforfait '
+                    . 'SET lignefraishorsforfait.libelle = :unLibelle, lignefraishorsforfait.montant = :unMontant, lignefraishorsforfait.date = :uneDate '
+                    . 'WHERE lignefraishorsforfait.idvisiteur = :unIdVisiteur '
+                    . 'AND lignefraishorsforfait.mois = :unMois '
+                    . 'AND lignefraishorsforfait.id = :unId'
+            );
+            $requetePrepare->bindParam(':unLibelle', $libelle, PDO::PARAM_STR);
+            $requetePrepare->bindParam(':unMontant', $montant, PDO::PARAM_STR);
+            $requetePrepare->bindParam(':uneDate', $date, PDO::PARAM_STR);
+            $requetePrepare->bindParam(':unIdVisiteur', $idVisiteur, PDO::PARAM_STR);
+            $requetePrepare->bindParam(':unMois', $mois, PDO::PARAM_STR);
+            $requetePrepare->bindParam(':unId', $unIdHorsFrais, PDO::PARAM_INT);
+            $requetePrepare->execute();
+        }
+    }
+    
+    public function refuserFraisHorsForfait($idFrais) {
+        $requetePrepare = PdoGSB::$monPdo->prepare(
+                'UPDATE lignefraishorsforfait '
+                . 'SET lignefraishorsforfait.libelle= LEFT(CONCAT("REFUSE"," ",libelle),100) '
+                . 'WHERE lignefraishorsforfait.id = :unIdFrais'
+        );
+        $requetePrepare->bindParam(':unIdFrais', $idFrais, PDO::PARAM_STR);
+        $requetePrepare->execute();
+    }
+    
+    public function getMoisSuivant($mois) {
+        $numAnnee = substr($mois, 0, 4);
+        $numMois = substr($mois, 4, 2);
+        if ($numMois == '12') {
+            $numMois = '01';
+            $numAnnee++;
+        } else {
+            $numMois++;
+        }
+        if (strlen($numMois) == 1) {
+            $numMois = '0' . $numMois;
+        }
+        return $numAnnee . $numMois;
+    }
 
     /**
      * Met à jour le nombre de justificatifs de la table ficheFrais
@@ -328,7 +376,7 @@ class PdoGsb
      */
     public function majNbJustificatifs($idVisiteur, $mois, $nbJustificatifs)
     {
-        $requetePrepare = PdoGB::$monPdo->prepare(
+        $requetePrepare = PdoGsb::$monPdo->prepare(
             'UPDATE fichefrais '
             . 'SET nbjustificatifs = :unNbJustificatifs '
             . 'WHERE fichefrais.idvisiteur = :unIdVisiteur '
@@ -609,6 +657,36 @@ class PdoGsb
             . 'AND fichefrais.mois = :unMois'
         );
         $requetePrepare->bindParam(':unEtat', $etat, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':unIdVisiteur', $idVisiteur, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':unMois', $mois, PDO::PARAM_STR);
+        $requetePrepare->execute();
+    }
+    
+    public function reporterFraisHorsForfait($idFrais, $ceMois) {
+        $mois = $this->getMoisSuivant($ceMois);
+        $requetePrepare = PdoGSB::$monPdo->prepare(
+                'UPDATE lignefraishorsforfait '
+                . 'SET lignefraishorsforfait.mois= :unMois '
+                . 'WHERE lignefraishorsforfait.id = :unIdFrais'
+        );
+        $requetePrepare->bindParam(':unIdFrais', $idFrais, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':unMois', $mois, PDO::PARAM_STR);
+        $requetePrepare->execute();
+        return $mois;
+    }
+    
+    public function validerFicheDeFrais($idVisiteur, $mois, $montant) {
+        $dateCourante = date('Y-m-d');
+        $idEtat = 'VA';
+        $requetePrepare = PdoGSB::$monPdo->prepare(
+                'UPDATE fichefrais '
+                . 'SET fichefrais.montantvalide = :unMontant, fichefrais.datemodif = :uneDate, fichefrais.idetat = :unIdEtat '
+                . 'WHERE fichefrais.idvisiteur = :unIdVisiteur '
+                . 'AND fichefrais.mois = :unMois '
+        );
+        $requetePrepare->bindParam(':unMontant', $montant, PDO::PARAM_INT);
+        $requetePrepare->bindParam(':uneDate', $dateCourante, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':unIdEtat', $idEtat, PDO::PARAM_STR);
         $requetePrepare->bindParam(':unIdVisiteur', $idVisiteur, PDO::PARAM_STR);
         $requetePrepare->bindParam(':unMois', $mois, PDO::PARAM_STR);
         $requetePrepare->execute();
